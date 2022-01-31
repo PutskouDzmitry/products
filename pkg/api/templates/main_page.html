@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main Page</title>
+    <style>
+        p {
+            color: red;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <form action="/input" method="get">
+        Какое действие хотите выбрать:
+        <ul>
+            <li>
+                1. Вывести перечень параметров для заданной группы продукции. <button type="submit" value="1" name="submit">Выбрать</button>
+            </li>
+            <li>
+                2. Вывести перечень продукции, не содержащий заданного параметра. <button type="submit" value="2" name="submit">Выбрать</button>
+            </li>
+            <li>
+                3. Вывести информацию о продукции для заданной группы продукции. <button type="submit" value="3" name="submit">Выбрать</button>
+            </li>
+            <li>
+                4. Вывести информаию о продукции и всех ее параметрах со значениями. <button type="submit" value="4" name="submit">Выбрать</button>
+            </li>
+            <li>
+                5. Удалить из базы продукцию, содержащую заданные параметры. <button type="submit" value="5" name="submit">Выбрать</button>
+            </li>
+            <li>
+                6. Переместить группу параметров из одной группы товаров в другую. <button type="submit" value="6" name="submit">Выбрать</button>
+            </li>
+        </ul>
+    </form>
+
+        <p> {{ .Err }} </p>
+
+    <ul>
+        {{range .ProductWithParameters }}
+        <li>
+            <b>Имя параметра: {{ .Name }}</b>
+            </br>
+            <b>Тип параметра: {{ .UnitOfProduct }}</b>
+        </li>
+        {{end}}
+    </ul>
+    <ul>
+        {{range .ProductWithoutParameters }}
+        <li>
+            <b>Имя продукта: {{ .Name }}</b>
+            </br>
+            <b>Описание: {{ .Description }}</b>
+            </br>
+            <b>Дата производста: {{ .ReleaseDate }}</b>
+            </br>
+            <b>Параметры: {{ .ParametersIdStruct.Name }} ({{ .ParametersIdStruct.UnitOfProduct }}) </b>
+            </br>
+        </li>
+        {{end}}
+    </ul>
+    <ul>
+        {{range .ProductWithParameterGroup }}
+        <li>
+            <b>Имя продукта: {{ .Name }}</b>
+            </br>
+            <b>Описание: {{ .Description }}</b>
+            </br>
+            <b>Дата производста: {{ .ReleaseDate }}</b>
+            </br>
+            <b>Группа продуктов: {{ .GroupOfProductsStruct.Name }} </b>
+            </br>
+        </li>
+        {{end}}
+    </ul>
+    <ul>
+        {{range .AllProduct }}
+        <li>
+            <b>Имя продукта: {{ .Name }}</b>
+            </br>
+            <b>Группа продукции: {{ .GroupOfProductsStruct.Name }}; {{ .GroupOfProductsStruct.GroupParametersStruct.Name }}; {{ .GroupOfProductsStruct.GroupParametersStruct.ParametersStruct.Name }} ({{ .GroupOfProductsStruct.GroupParametersStruct.ParametersStruct.UnitOfProduct }}) </b>
+            </br>
+            <b>Описание: {{ .Description }}</b>
+            </br>
+            <b>Дата производста: {{ .ReleaseDate }}</b>
+            </br>
+            <b>Параметры: {{ .ParametersIdStruct.Name }} ({{ .ParametersIdStruct.UnitOfProduct }}) </b>
+            </br>
+        </li>
+        {{end}}
+    </ul>
+
+
+</body>
+</html>

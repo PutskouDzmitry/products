@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {{ if eq .URL "/products_with_parameters/"}}
+    <form action="/products_with_parameters">
+        Введите группу продукции для вывода перечня параметров
+        </br>
+        <input type="text" name="title" id="title1">
+        <button>Send</button>
+    </form>
+    {{ end }}
+    {{ if eq .URL "/products_without_parameters/"}}
+    <form action="/products_without_parameters">
+        Введите параметр для вывода перечня продукции не содержащий заданный параметр
+        </br>
+        <input type="text" name="title" id="title2">
+        <button>Send</button>
+    </form>
+    {{ end }}
+    {{ if eq .URL "/products_with_specific_group/"}}
+    <form action="/products_with_specific_group">
+        Введите группы продукции для вывода информации о продукции
+        </br>
+        <input type="text" name="title" id="title3">
+        <button>Send</button>
+    </form>
+    {{ end }}
+    {{ if eq .URL "/products_all/"}}
+    <form action="/products_all">
+        Вывод всех продукции
+        </br>
+        <button>Output</button>
+    </form>
+    {{ end }}
+    {{ if eq .URL "/products_delete/"}}
+    <form action="/products_delete" method="GET">
+        Введите параметр для удаление продукции
+        </br>
+        <input type="text" name="title" id="title5">
+        <button>Send</button>
+    </form>
+    {{ end }}
+    {{ if eq .URL "/products_put/"}}
+    <form action="/products_put" method="GET">
+        Ввидете группу параметров и группу товаров для переноса этих параметров в новую группу товаров
+        </br>
+        <input type="text" name="paramOfGroupParam" id="paramOfGroupParam" placeholder="Group of param">
+        </br>
+        <input type="text" name="paramOfGroupProduct2" id="paramOfGroupProduct2" placeholder="Group of product from">
+        </br>
+        <button>Send</button>
+            {{range .Product }}
+            <li>
+                Group of products: {{ .GroupOfProductsStruct.Name }}
+                </br>
+            </li>
+            {{end}}
+            --------------------------------------------
+            {{range .Product }}
+            <li>
+                Group of parameters: {{ .GroupOfProductsStruct.GroupParametersStruct.Name }}
+                </br>
+            </li>
+            {{end}}
+    </form>
+    {{ end }}
+
+</body>
+</html>
